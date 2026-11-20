@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta de usuario</title>
+    <link rel="stylesheet" href="/estilinhos.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <h1>Alta de usuario</h1>
+    <a href="/">Volver al menú</a>
+    <!--aca busque el sweetalert-->
+    <% if (mensaje){ %>
+        <script>
+            Swal.fire({
+                icon: '<%= mensaje.startsWith("Usuario agregado") ? "success" : "error" %>',
+                title: '<%= mensaje %>',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        </script>
+        <% } %>
+            <!--aca esta para meter usuarios-->
+            <form action="/alta" method="post" class="formulario">
+                <label>Login <input type="text" name="usuarios" maxlength="20" pattern="[A-Za-z0-9]{1,20}"
+                        title="Letras y números, hasta 20" required></label>
+                <label>Nombre <input type="text" name="nombre" maxlength="20" pattern="[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,20}"
+                        title="Solo letras y espacios" required></label>
+                <label>Sexo
+                    <select name="sexo" required>
+                        <option value="M">Mujer</option>
+                        <option value="H">Hombre</option>
+                    </select>
+                </label>
+                <label>Nivel
+                    <select name="nivel" required>
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </label>
+                <label>Email <input type="email" name="email" maxlength="50" required></label>
+                <label>Teléfono <input type="text" name="telefono" maxlength="20"
+                        pattern="\d{2}-?\d{4}-?\d{4}" placeholder="11-1234-5678"
+                        title="10 números, con o sin guiones" required></label>
+                <label>Marca <input type="text" name="marca" maxlength="20" pattern="[A-Za-z0-9& ]{2,20}"
+                        title="Letras, números, & y espacios" required></label>
+                <label>Compañía <input type="text" name="compania" maxlength="20" pattern="[A-Za-z0-9& ]{2,20}"
+                        title="Letras, números, & y espacios" required></label>
+                <label>Saldo <input type="number" name="saldo" min="0" step="any" value="0" required></label>
+                <label>Activo
+                    <select name="activo" required>
+                        <option value="1">Sí</option>
+                        <option value="0">No</option>
+                    </select>
+                </label>
+                <button type="submit">Agregar</button>
+            </form>
+</body>
+
+</html>

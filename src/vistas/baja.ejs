@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baja de usuario</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <h1>Baja de usuario</h1>
+    <a href="/">Volver al menú</a>
+
+    <form action="/baja" method="get">
+        <input type="text" name="buscar" value="<%= buscar %>" placeholder="Buscar por nombre o login (ej: na)"
+            autofocus required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <% if (mensaje) { %>
+        <script>
+            Swal.fire({ icon: 'success', title: '<%= mensaje %>', timer: 2000, showConfirmButton: false });
+        </script>
+    <% } %>
+
+            <% if (buscar && filas.length===0) { %>
+                <p>No se encontró ningún usuario que empiece con "<%= buscar %>".</p>
+                <% } %>
+
+                    <% if (filas.length> 0) { %>
+                        <div>
+                            <% filas.forEach(f=> { %>
+                                <div>
+                                    <div>
+                                        <strong>
+                                            <%= f.nombre %>
+                                        </strong>
+                                        <span>
+                                            <%= f.usuarios %> · <%= f.telefono %>
+                                        </span>
+                                    </div>
+                                    <form action="/baja" method="post" class="form-eliminar"
+                                        data-nombre="<%= f.nombre %>">
+                                        <input type="hidden" name="idx" value="<%= f.idx %>">
+                                        <input type="hidden" name="buscar" value="<%= buscar %>">
+                                        <button type="submit">Eliminar</button>
+                                    </form>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <% } %>
+
+    <script>
+        document.querySelectorAll('.form-eliminar').forEach(form => {
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: '¿Eliminar a ' + form.dataset.nombre + '?',
+                    text: 'Esta acción no se puede deshacer',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#d33'
+                }).then(r => {
+                    if (r.isConfirmed) form.submit();
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

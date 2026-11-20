@@ -1,14 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>listar nombres usuario</title>
+    <title>Consultas Usuarios</title>
+    <link rel="stylesheet" href="/estilinhos.css">
 </head>
 
 <body>
+    <h1>Consultas - Usuarios</h1>
 
+    <div class="abm">
+        <a href="/alta"><button>Alta de usuario</button></a>
+        <a href="/baja"><button>Baja de usuario</button></a>
+    </div>
+
+    <nav class="menu">
+        <% titulos.forEach((t, i) => { %>
+            <a href="/consulta/<%= i + 1 %>">
+                <button class="<%= num === i + 1 ? 'activo' : '' %>">
+                    <%= i + 1 %>. <%= t %>
+                </button>
+            </a>
+        <% }) %>
+    </nav>
+
+    <% if (num) { %>
+        <h2>
+            <%= num %>. <%= titulo %>
+        </h2>
+        <% } %>
+
+            <% if (filas.length> 0) { %>
+                <table>
+                    <tr>
+                        <% Object.keys(filas[0]).forEach(col=> { %>
+                            <th>
+                                <%= col %>
+                            </th>
+                            <% }) %>
+                    </tr>
+                    <% filas.forEach(f=> { %>
+                        <tr>
+                            <% Object.values(f).forEach(valor=> { %>
+                                <td>
+                                    <%= valor %>
+                                </td>
+                                <% }) %>
+                        </tr>
+                        <% }) %>
+                </table>
+                <% } %>
 </body>
 
 </html>
