@@ -330,7 +330,7 @@ function validarUsuario(d) {
     return /^[A-Za-z0-9]{1,20}$/.test(d.usuarios) &&          // login: letras y números, 1 a 20 (20 es el limite de la bdd)
         /^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{2,20}$/.test(d.nombre) &&      // nombre: solo letras y espacios
         /^[MH]$/.test(d.sexo) &&                                //M o H
-        /^[0-3]$/.test(d.nivel) &&                              // nivel: 0 a 3
+        /^(100|[1-9]?\d)$/.test(d.nivel) &&                    // nivel: 0 a 100
         /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(d.email) &&        // email: algo@algo.algo
         /^\d{2}-?\d{4}-?\d{4}$/.test(d.telefono) &&               // teléfono
         /^[A-Za-z0-9& ]{2,20}$/.test(d.marca) &&                // marca: letras, números, & y espacios
